@@ -40,3 +40,6 @@ const port = 3003; // Change port to 3003
 app.listen(port, () => {
   console.log("Server started");
 });
+app.get("/" ,(req,res)=>{
+  res.status(200).send("Hello from the server!");
+})
