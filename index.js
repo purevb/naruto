@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const Ciity = require("./models/City");
 const  corsConfig={
   origin:["https://naruto-api-gamma.vercel.app/"],
   methods:["POST",'GET'],
@@ -51,4 +52,20 @@ app.listen(port, () => {
 });
 app.get("/" ,(req,res)=>{
   res.status(200).send("Hello from the server!");
+});
+
+app.get("/city",  (req, res) => {
+  try {
+    Ciity.find()
+      .then((citys) => {
+        console.log(citys);
+        res.status(200).json({ citys: citys });
+      })
+      .catch((error) => {
+        res.status(500).json({ msg: "Unable to get city" });
+      });
+  } catch (error) { 
+    console.log(error);
+    res.status(500).json({ msg: "Unable to get city" });
+  }
 });
