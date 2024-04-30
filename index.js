@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require('cors');const router = express.Router();
 
 const app = express();
 app.use(cors(
@@ -27,7 +27,23 @@ const City = require("./routes/City");
 app.use("/api",City);
 
 const Event = require("./routes/Event");
+
 app.use("/api",Event);
+router.get("/city", async (req, res) => {
+  try {
+    City.find()
+      .then((citys) => {
+        console.log(citys);
+        res.status(200).json({ citys: citys });
+      })
+      .catch((error) => {
+        res.status(500).json({ msg: "Unable to get city" });
+      });
+  } catch (error) { 
+    console.log(error);
+    res.status(500).json({ msg: "Unable to get city" });
+  }
+});
 
 // Connection from Mongoose to MongoDB
 const connectToDB = async () => {
