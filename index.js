@@ -30,11 +30,26 @@ app.use("/api",City);
 const Event = require("./routes/Event");
 app.use("/api",Event);
 
+const test = require("./routes/test");
+app.use("/api",test);
+
 
 // Connection from Mongoose to MongoDB
+// const connectToDB = async () => {
+//   try {
+//     await mongoose.connect("mongodb+srv://Admin:admin123@counter.wxua8nf.mongodb.net/test", {
+    
+//     });
+//     console.log("Connected to MongoDB");
+//   } catch (error) {
+//     console.log(error);
+//     process.exit(1);
+//   }
+// };
+
 const connectToDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://Admin:admin123@counter.wxua8nf.mongodb.net/test", {
+    await mongoose.connect("mongodb+srv://admin:admin@test.mssivz0.mongodb.net/?retryWrites=true&w=majority&appName=test", {
     
     });
     console.log("Connected to MongoDB");
