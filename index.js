@@ -2,15 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const  corsConfig={
+  origin:["https://naruto-api-gamma.vercel.app/"],
+  methods:["POST",'GET'],
+  credentials:true
+}
 
 const app = express();
-app.use(cors(
-  {
-    origin:["https://naruto-api-gamma.vercel.app/"],
-    methods:["POST",'GET'],
-    credentials:true
-  }
-))
+app.use(cors(corsConfig));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
