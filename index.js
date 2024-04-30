@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require('cors');const router = express.Router();
+const cors = require('cors');
+const router = express.Router();
 
 const app = express();
 app.use(cors(
@@ -29,21 +30,6 @@ app.use("/api",City);
 const Event = require("./routes/Event");
 
 app.use("/api",Event);
-router.get("/city", async (req, res) => {
-  try {
-    City.find()
-      .then((citys) => {
-        console.log(citys);
-        res.status(200).json({ citys: citys });
-      })
-      .catch((error) => {
-        res.status(500).json({ msg: "Unable to get city" });
-      });
-  } catch (error) { 
-    console.log(error);
-    res.status(500).json({ msg: "Unable to get city" });
-  }
-});
 
 // Connection from Mongoose to MongoDB
 const connectToDB = async () => {
@@ -60,10 +46,28 @@ const connectToDB = async () => {
 
 connectToDB();
 
+// Define the '/city' route
+app.get("/city", async (req, res) => {
+  try {
+    City.find()
+      .then((citys) => {
+        console.log(citys);
+        res.status(200).json({ citys: citys });
+      })
+      .catch((error) => {
+        res.status(500).json({ msg: "Unable to get city" });
+      });
+  } catch (error) { 
+    console.log(error);
+    res.status(500).json({ msg: "Unable to get city" });
+  }
+});
+
 const port = 3003; // Change port to 3003
 app.listen(port, () => {
   console.log("Server started");
 });
+
 app.get("/" ,(req,res)=>{
   res.status(200).send("Hello from the server!");
 })
