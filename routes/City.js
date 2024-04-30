@@ -9,7 +9,7 @@ const City = require("../models/City");
 router.post("/city", async (req, res) => {
   try {
     const newCity = new City(req.body);
-    await newCity
+     newCity
       .save()
       .then((savedCity) => {
         console.log(savedCity);
@@ -26,7 +26,7 @@ router.post("/city", async (req, res) => {
 });
 
 // Get all posts
-router.get("/city", async (req, res) => {
+router.get("/city",  (req, res) => {
   try {
     City.find()
       .then((citys) => {
@@ -43,11 +43,11 @@ router.get("/city", async (req, res) => {
 });
 
 // update 
-router.get('/city/:id', async (req, res) => {
+router.get('/city/:id',  (req, res) => {
   try {
       const id = req.params.id;
       const updatedCity = req.body;
-       await City.findOneAndUpdate({_id:id},updatedCity,{new:true})
+        City.findOneAndUpdate({_id:id},updatedCity,{new:true})
        .then((updatedCity)=>{
           console.log(updatedCity);
           res.status(200).json({msg:"City succesfully updated", city: City});
@@ -61,11 +61,11 @@ router.get('/city/:id', async (req, res) => {
   }
 });
 // search
-router.get('/search', async (req, res) => {
+router.get('/search',  (req, res) => {
   try {
       const searchTerm = req.query.searchTerm;
       const searchRegex = new RegExp(searchTerm, "i");
-      const citys = await City.find({
+      const citys =  City.find({
           $or: [
               { cityId: searchRegex },
               { cityName: searchRegex }
@@ -81,10 +81,10 @@ router.get('/search', async (req, res) => {
 
 
 
-router.delete('/city/:id', async (req, res) => {
+router.delete('/city/:id',  (req, res) => {
   try {
       const id = req.params.id;
-      const deletedCity= await City.findOneAndDelete(id);
+      const deletedCity=  City.findOneAndDelete(id);
       if(!deletedCity){
         return res.status(404).json({ msg: "City not found" });
       }
