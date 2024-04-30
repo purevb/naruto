@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors(
   {
-    origin:["https://naruto-hazel.vercel.app/"],
+    origin:["https://naruto-api-gamma.vercel.app/"],
     methods:["POST",'GET'],
     credentials:true
   }
