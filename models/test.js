@@ -7,7 +7,7 @@ const test = new mongoose.Schema({
         trim: true,
     },
     date: {
-        type: String,
+        type: Date,
         required: [true, "city name is required"],
        
     }

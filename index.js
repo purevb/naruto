@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require("serverless-http");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require('cors');
@@ -34,22 +35,10 @@ const test = require("./routes/test");
 app.use("/api",test);
 
 
-// Connection from Mongoose to MongoDB
-// const connectToDB = async () => {
-//   try {
-//     await mongoose.connect("mongodb+srv://Admin:admin123@counter.wxua8nf.mongodb.net/test", {
-    
-//     });
-//     console.log("Connected to MongoDB");
-//   } catch (error) {
-//     console.log(error);
-//     process.exit(1);
-//   }
-// };
-
+//Connection from Mongoose to MongoDB
 const connectToDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://admin:admin@test.mssivz0.mongodb.net/?retryWrites=true&w=majority&appName=test", {
+    await mongoose.connect("mongodb+srv://Admin:admin123@counter.wxua8nf.mongodb.net/test", {
     
     });
     console.log("Connected to MongoDB");
@@ -59,9 +48,21 @@ const connectToDB = async () => {
   }
 };
 
+// const connectToDB = async () => {
+//   try {
+//     await mongoose.connect("mongodb+srv://admin:admin@test.mssivz0.mongodb.net/?retryWrites=true&w=majority&appName=test", {
+    
+//     });
+//     console.log("Connected to MongoDB");
+//   } catch (error) {
+//     console.log(error);
+//     process.exit(1);
+//   }
+// };
+
 connectToDB();
 
-const port = 3003; // Change port to 3003
+const port = 8080; // Change port to 3003
 app.listen(port, () => {
   console.log("Server started");
 });
@@ -84,3 +85,5 @@ app.get("/city",  (req, res) => {
     res.status(500).json({ msg: "Unable to get city" });
   }
 });
+
+module.exports.handler = serverless(app);
