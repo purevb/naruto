@@ -1,5 +1,5 @@
 const express = require("express");
-const serverless = require("serverless-http");
+//const serverless = require("serverless-http");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require('cors');
@@ -86,4 +86,4 @@ app.get("/city",  (req, res) => {
   }
 });
 
-module.exports.handler = serverless(app);
+//module.exports.handler = serverless(app);
