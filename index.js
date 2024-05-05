@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const Ciity = require("./models/City");
+require('dotenv').config();
 const  corsConfig={
   origin:["https://naruto-api-gamma.vercel.app/"],
   methods:["POST",'GET'],
@@ -38,7 +39,7 @@ app.use("/api",test);
 //Connection from Mongoose to MongoDB
 const connectToDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://Admin:admin123@counter.wxua8nf.mongodb.net/test", {
+    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
     
     });
     console.log("Connected to MongoDB");
