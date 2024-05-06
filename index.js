@@ -1,96 +1,99 @@
-const express = require("express");
-//const serverless = require("serverless-http");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require('cors');
-const Ciity = require("./models/City");
-require('dotenv').config();
-const  corsConfig={
-  origin:["http://ec2-54-226-151-184.compute-1.amazonaws.com:8080/"],
-  methods:["POST",'GET'],
-  credentials:true
-}
+  const express = require("express");
+  //const serverless = require("serverless-http");
+  const mongoose = require("mongoose");
+  const bodyParser = require("body-parser");
+  const cors = require('cors');
+  const Ciity = require("./models/City");
+  require('dotenv').config();
+  const corsConfig = {
+    origin: "http://ec2-54-226-151-184.compute-1.amazonaws.com:8080", // Allow requests from this origin
+    methods: ["POST", "GET"], // Allow these HTTP methods
+    credentials: true // Allow credentials (cookies, etc.)
+  };
+  
+ 
 
-const app = express();
-app.use(cors(corsConfig));
+  const app = express();
+  app.options('*', cors(corsConfig));
+  app.use(cors(corsConfig));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-const User = require("./routes/User");
-app.use("/api",User);
+  const User = require("./routes/User");
+  app.use("/api",User);
 
-const Session = require("./routes/Session");
-app.use("/api",Session);
+  const Session = require("./routes/Session");
+  app.use("/api",Session);
 
-const Device = require("./routes/Device");
-app.use("/api",Device);
-app.get('/api/data', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const Device = require("./routes/Device");
+  app.use("/api",Device);
+  app.get('/api/data', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-  // Your route logic to send data
-  res.send({ message: 'Hello from the API' });
-});
+    // Your route logic to send data
+    res.send({ message: 'Hello from the API' });
+  });
 
-const City = require("./routes/City");
-app.use("/api",City);
+  const City = require("./routes/City");
+  app.use("/api",City);
 
-const Event = require("./routes/Event");
-app.use("/api",Event);
+  const Event = require("./routes/Event");
+  app.use("/api",Event);
 
-const test = require("./routes/test");
-app.use("/api",test);
+  const test = require("./routes/test");
+  app.use("/api",test);
 
 
-//Connection from Mongoose to MongoDB
-const connectToDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
-    
-    });
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-};
-
-// const connectToDB = async () => {
-//   try {
-//     await mongoose.connect("mongodb+srv://admin:admin@test.mssivz0.mongodb.net/?retryWrites=true&w=majority&appName=test", {
-    
-//     });
-//     console.log("Connected to MongoDB");
-//   } catch (error) {
-//     console.log(error);
-//     process.exit(1);
-//   }
-// };
-
-connectToDB();
-
-const port = 8080; // Change port to 3003
-app.listen(port, () => {
-  console.log("Server started");
-});
-app.get("/" ,(req,res)=>{
-  res.status(200).send("Hello from the server!");
-});
-
-app.get("/city",  (req, res) => {
-  try {
-    Ciity.find()
-      .then((citys) => {
-        console.log(citys);
-        res.status(200).json({ citys: citys });
-      })
-      .catch((error) => {
-        res.status(500).json({ msg: "Unable to get city" });
+  //Connection from Mongoose to MongoDB
+  const connectToDB = async () => {
+    try {
+      await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
+      
       });
-  } catch (error) { 
-    console.log(error);
-    res.status(500).json({ msg: "Unable to get city" });
-  }
-});
+      console.log("Connected to MongoDB");
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  };
 
-//module.exports.handler = serverless(app);
+  // const connectToDB = async () => {
+  //   try {
+  //     await mongoose.connect("mongodb+srv://admin:admin@test.mssivz0.mongodb.net/?retryWrites=true&w=majority&appName=test", {
+      
+  //     });
+  //     console.log("Connected to MongoDB");
+  //   } catch (error) {
+  //     console.log(error);
+  //     process.exit(1);
+  //   }
+  // };
+
+  connectToDB();
+
+  const port = 8080; // Change port to 3003
+  app.listen(port, () => {
+    console.log("Server started");
+  });
+  app.get("/" ,(req,res)=>{
+    res.status(200).send("Hello from the server!");
+  });
+
+  app.get("/city",  (req, res) => {
+    try {
+      Ciity.find()
+        .then((citys) => {
+          console.log(citys);
+          res.status(200).json({ citys: citys });
+        })
+        .catch((error) => {
+          res.status(500).json({ msg: "Unable to get city" });
+        });
+    } catch (error) { 
+      console.log(error);
+      res.status(500).json({ msg: "Unable to get city" });
+    }
+  });
+
+  //module.exports.handler = serverless(app);
