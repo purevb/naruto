@@ -25,6 +25,12 @@ app.use("/api",Session);
 
 const Device = require("./routes/Device");
 app.use("/api",Device);
+app.get('/api/data', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Your route logic to send data
+  res.send({ message: 'Hello from the API' });
+});
 
 const City = require("./routes/City");
 app.use("/api",City);
