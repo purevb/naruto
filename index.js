@@ -6,7 +6,7 @@ const cors = require('cors');
 const Ciity = require("./models/City");
 require('dotenv').config();
 const  corsConfig={
-  origin:["http://ec2-54-226-151-184.compute-1.amazonaws.com:8080/"],
+  origin:["*"],
   methods:["POST",'GET'],
   credentials:true
 }
