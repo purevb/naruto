@@ -7,6 +7,7 @@ const User = require("../models/User");
 // Create api method
 
 router.post("/user", async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   try {
     const newUser = new User(req.body);
     await newUser
