@@ -7,18 +7,18 @@ require('dotenv').config();
 
 const app = express();
 
-// CORS configuration
+
 app.use(cors({
-  origin: "*", // Allow requests from all origins
-  methods: ["GET", "POST"], // Allow only GET and POST methods
-  credentials: true // Allow sending cookies from the client
+  origin: "*", 
+  methods: ["GET", "POST"], 
+  credentials: true 
 }));
 
-// Body parser middleware
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Routes
+
 const User = require("./routes/User");
 app.use("/api", User);
 
